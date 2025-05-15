@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response
 import cv2
 import imageProcessing as imgprocess
+import os 
 
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)
@@ -25,5 +26,6 @@ def index():
 def video():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8082))  # Defaults to 8080 if PORT not set
+    app.run(host="0.0.0.0", port=port, debug=True)
